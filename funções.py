@@ -10,20 +10,57 @@ def criar_novo_contato(lista_de_contatos, nome, telefone, email):
 
 # Listar contatos
 def listar_contatos(lista_de_contatos):
-  if not lista_de_contatos:
-    print("Lista de contatos vázia 📭")
-    return
-  
-  # Ordena os contatos em ordem alfabética
-  contatos_ordenados = sorted(lista_de_contatos, key=lambda contato: 
-  contato["nome"].title())
+    if not lista_de_contatos:
+        print("Lista de contatos vazia 📭")
+        return
 
-  # Renderiza os contato em tela
-  print("\n=== LISTA DE CONTATOS ===")
-  for indice, contato in enumerate(contatos_ordenados, start=1):
-    print(f"\n {indice}. Nome: {contato['nome']}")
-    print(f"   Telefone: {contato['telefone']}")
-    print(f"   E-mail: {contato['email']}")
+    contatos_ordenados = sorted(
+        lista_de_contatos,
+        key=lambda contato: contato["nome"].title()
+    )
+
+    while True:
+        print("\n=== LISTA DE CONTATOS ===")
+        for indice, contato in enumerate(contatos_ordenados, start=1):
+            print(f"{indice}. {contato['nome']}")
+
+        print("0. Voltar")
+
+        escolha = input("\nSelecione o número do contato para visualizar: ").strip()
+
+        if not escolha.isdigit():
+            print("Digite apenas números.")
+            continue
+
+        escolha = int(escolha)
+
+        if escolha == 0:
+            print("Voltando...")
+            break
+
+        if escolha < 1 or escolha > len(contatos_ordenados):
+            print("Contato inválido.")
+            continue
+
+        contato = contatos_ordenados[escolha - 1]
+
+        while True:
+            print("\n=== DETALHES DO CONTATO ===")
+            print(f"Nome: {contato['nome']}")
+            print(f"Telefone: {contato['telefone']}")
+            print(f"E-mail: {contato['email']}")
+
+            print("\n1. Voltar para a lista")
+            print("0. Sair da visualização")
+
+            opcao = input("Escolha uma opção: ").strip()
+
+            if opcao == "1":
+                break
+            elif opcao == "0":
+                return
+            else:
+                print("Opção inválida.")
 
 # Editar contato existente
 def editar_contato(lista_de_contatos):

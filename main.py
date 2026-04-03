@@ -9,7 +9,7 @@ while True:
 
   print("1. Criar um novo contato")  # Create
   print("2. Listar todos contatos")  # Read
-  print("3. Editar um contato")   # Update
+  print("3. Editar um contato")      # Update
   print("4. Deletar um contato")     # Delete
   print("5. Sair")
 
