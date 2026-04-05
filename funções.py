@@ -1,8 +1,26 @@
+import validações
+
 # Criar um novo contato
 def criar_novo_contato(lista_de_contatos):
-    nome = input("Digite o nome do contato: ")
-    telefone = input("Digite o número do contato: ")
-    email = input("Digite o email do contato: ")
+    while True:
+        nome = input("Digite o nome do contato: ")
+        if validações.validar_nome(nome):
+            break
+        print("❌ Nome inválido. Digite apenas letras.")
+
+    while True:
+        telefone = input("Digite o número do contato: ")
+        if validações.validar_numero(telefone):
+            telefone = validações.formatar_numero(telefone)
+            break
+        print("❌ Número inválido. Digite apenas números e no mínimo 11 dígitos.")
+
+    while True:
+        email = input("Digite o email do contato: ")
+        if validações.validar_email(email):
+            break
+        print("❌ Email inválido. Use @gmail.com, @outlook.com ou @icloud.com.")
+
   
     # Pergunta se é favorito com validação
     while True:
@@ -226,5 +244,3 @@ def excluir_contato(lista_de_contatos):
 
     # Feedback
     print(f"🗑️ Contato {contato_removido['nome']} removido com sucesso!")
-
-    
