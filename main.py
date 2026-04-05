@@ -7,11 +7,12 @@ while True:
   # Legenda
   print("\nLista de Contatos 📱")
 
-  print("1. Criar um novo contato")  # Create
-  print("2. Listar todos contatos")  # Read
-  print("3. Editar um contato")      # Update
-  print("4. Deletar um contato")     # Delete
-  print("5. Sair")
+  print("1. Criar um novo contato")     # Create
+  print("2. Listar todos os contatos")  # Read
+  print("3. Listar apenas favoritos")
+  print("4. Editar um contato")         # Update
+  print("5. Deletar um contato")        # Delete
+  print("6. Sair")
 
   escolha = input("\nEscolha uma das opções acima: ")
 
@@ -19,7 +20,6 @@ while True:
     nome = input("Digite o nome do contato: ")
     telefone = input("Digite o número do contato: ")
     email = input("Digite o email do contato: ")
-    favorito = input("Deseja criar como favorito: ")
   
     # Função
     funções.criar_novo_contato(lista_de_contatos, nome, telefone,
@@ -29,9 +29,12 @@ while True:
     funções.listar_contatos(lista_de_contatos)
 
   elif escolha == "3":
+    funções.listar_favoritos(lista_de_contatos)
+
+  elif escolha == "4":
       funções.listar_contatos
       funções.editar_contato(lista_de_contatos)
 
-  elif escolha == "5":
+  elif escolha == "6":
     print("Programa encerrado 👋")
     break

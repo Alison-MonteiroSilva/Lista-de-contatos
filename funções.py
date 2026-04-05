@@ -1,12 +1,30 @@
 # Criar um novo contato
 def criar_novo_contato(lista_de_contatos, nome, telefone, email):
-  contato = {"nome": nome, "telefone": telefone, "email": email}
-  
-  lista_de_contatos.append(contato)
+    
+    # Pergunta se é favorito com validação
+    while True:
+        resposta = input("Deseja adicionar esse contato aos favoritos? (s/n): ").strip().lower()
 
-  print(f"O contato 👤 {nome}, foi adicionado com sucesso! ✅")
+        # Validação
+        if resposta in ["s", "n"]:
+            favorito = "Sim" if resposta == "s" else "Não"
+            break
+        else:
+            print("❌ Entrada inválida! Digite apenas 's' ou 'n'.")
 
-  return
+    # Criação do contato
+    contato = {
+        "nome": nome,
+        "telefone": telefone,
+        "email": email,
+        "favorito": favorito
+    }
+
+    # Adiciona na lista
+    lista_de_contatos.append(contato)
+
+    # Feedback
+    print(f"O contato 👤 {nome} foi adicionado com sucesso! ✅")
 
 # Listar contatos
 def listar_contatos(lista_de_contatos):
@@ -14,6 +32,7 @@ def listar_contatos(lista_de_contatos):
         print("Lista de contatos vazia 📭")
         return
 
+    # Cria uma lista ordenada de contato
     contatos_ordenados = sorted(
         lista_de_contatos,
         key=lambda contato: contato["nome"].title()
@@ -21,6 +40,8 @@ def listar_contatos(lista_de_contatos):
 
     while True:
         print("\n=== LISTA DE CONTATOS ===")
+
+        # Lista os contatos armazenados
         for indice, contato in enumerate(contatos_ordenados, start=1):
             print(f"{indice}. {contato['nome']}")
 
@@ -28,6 +49,7 @@ def listar_contatos(lista_de_contatos):
 
         escolha = input("\nSelecione o número do contato para visualizar: ").strip()
 
+        # Verifica se recebeu um número
         if not escolha.isdigit():
             print("Digite apenas números.")
             continue
@@ -37,7 +59,8 @@ def listar_contatos(lista_de_contatos):
         if escolha == 0:
             print("Voltando...")
             break
-
+        
+        # Verifica se a escolha está na lista
         if escolha < 1 or escolha > len(contatos_ordenados):
             print("Contato inválido.")
             continue
@@ -49,7 +72,8 @@ def listar_contatos(lista_de_contatos):
             print(f"Nome: {contato['nome']}")
             print(f"Telefone: {contato['telefone']}")
             print(f"E-mail: {contato['email']}")
-
+            print(f"Favorito: {contato['favorito']}")
+            
             print("\n1. Voltar para a lista")
             print("0. Sair da visualização")
 
@@ -64,12 +88,14 @@ def listar_contatos(lista_de_contatos):
 
 # Editar contato existente
 def editar_contato(lista_de_contatos):
+    # Verifica se a lista não está vázia
     if not lista_de_contatos:
         print("Lista de contatos vazia 📭")
         return
 
     print("\n=== EDITAR CONTATO ===")
 
+    # Lista os contatos em tela
     for indice, contato in enumerate(lista_de_contatos, start=1):
         print(f"{indice}. {contato['nome']}")
         print(f"   Telefone: {contato['telefone']}")
@@ -77,12 +103,14 @@ def editar_contato(lista_de_contatos):
 
     indice_selecionado = input("\nDigite o número do contato que deseja editar: ").strip()
 
+    # Verifica se o indice digitado é válido
     if not indice_selecionado.isdigit():
         print("Índice inválido. Digite apenas números.")
         return
 
     indice_selecionado = int(indice_selecionado) - 1
 
+    # Verifica se o indice existe mesmo
     if indice_selecionado < 0 or indice_selecionado >= len(lista_de_contatos):
         print("Contato não encontrado.")
         return
@@ -94,13 +122,15 @@ def editar_contato(lista_de_contatos):
     print("1. Nome")
     print("2. Telefone")
     print("3. E-mail")
-    print("4. Todos")
+    print("4. Favotiro")
+    print("5. Todos")
 
     opcao = input("Escolha uma opção: ").strip()
 
     novo_nome = contato["nome"]
     novo_telefone = contato["telefone"]
     novo_email = contato["email"]
+    novo_favorito = contato["favorito"]
 
     if opcao == "1":
         novo_nome = input("Digite o novo nome: ").strip()
@@ -110,11 +140,16 @@ def editar_contato(lista_de_contatos):
 
     elif opcao == "3":
         novo_email = input("Digite o novo e-mail: ").strip()
-
+    
     elif opcao == "4":
+        nova_escolha = input("Deseja adicionar esse contato aos favoritos? (s/n): ").strip().lower()
+        novo_favorito = "Sim" if nova_escolha == "s" else "Não"
+
+    elif opcao == "5":
         novo_nome = input("Digite o novo nome: ").strip()
         novo_telefone = input("Digite o novo telefone: ").strip()
         novo_email = input("Digite o novo e-mail: ").strip()
+        novo_favorito = "Sim" if nova_escolha == "s" else "Não"
 
     else:
         print("Opção inválida.")
@@ -134,5 +169,23 @@ def editar_contato(lista_de_contatos):
     contato["nome"] = novo_nome
     contato["telefone"] = novo_telefone
     contato["email"] = novo_email
+    contato["favorito"] = novo_favorito
 
     print("Contato atualizado com sucesso ✅")
+
+# Listar contatos favoritos
+def listar_favoritos(lista_de_contatos):
+    # Filtra apenas contatos favoritos
+    favoritos = [contato for contato in lista_de_contatos if contato["favorito"] == "Sim"]
+
+    # Verifica se existe algum favorito
+    if not favoritos:
+        print("📭 Nenhum contato favoritado.")
+        return
+
+    print("\n⭐ === CONTATOS FAVORITOS ===")
+    for indice, contato in enumerate(favoritos, start=1):
+        print(f"{indice}. {contato['nome']}")
+        print(f"   📞 {contato['telefone']}")
+        print(f"   📧 {contato['email']}")
+        print("-" * 30)
