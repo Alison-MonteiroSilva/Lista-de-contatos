@@ -132,7 +132,7 @@ def editar_contato(lista_de_contatos):
     indice_selecionado = int(indice_selecionado) - 1
 
     # Verifica se o indice existe mesmo
-    if indice_selecionado <= 0 or indice_selecionado >= len(lista_de_contatos):
+    if indice_selecionado < 0 or indice_selecionado >= len(lista_de_contatos):
         print("Contato não encontrado.")
         return
 

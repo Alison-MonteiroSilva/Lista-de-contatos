@@ -1,4 +1,8 @@
 import funções
+import os
+
+def limpar_tela():
+    os.system("cls" if os.name == "nt" else "clear")
 
 lista_de_contatos = []
 
@@ -25,23 +29,29 @@ while True:
     if escolha == "1":
         funções.criar_novo_contato(lista_de_contatos)
         input("\nPressione Enter para voltar ao menu...")
+        limpar_tela()
 
     elif escolha == "2":
         funções.listar_contatos(lista_de_contatos)
         input("\nPressione Enter para voltar ao menu...")
+        limpar_tela()
 
     elif escolha == "3":
         funções.listar_favoritos(lista_de_contatos)
         input("\nPressione Enter para voltar ao menu...")
+        limpar_tela()
 
     elif escolha == "4":
         funções.editar_contato(lista_de_contatos)
         input("\nPressione Enter para voltar ao menu...")
+        limpar_tela()
 
     elif escolha == "5":
         funções.excluir_contato(lista_de_contatos)
         input("\nPressione Enter para voltar ao menu...")
+        limpar_tela()
 
     elif escolha == "6":
+        limpar_tela()
         print("Programa encerrado 👋")
         break
