@@ -1,6 +1,9 @@
 # Criar um novo contato
-def criar_novo_contato(lista_de_contatos, nome, telefone, email):
-    
+def criar_novo_contato(lista_de_contatos):
+    nome = input("Digite o nome do contato: ")
+    telefone = input("Digite o número do contato: ")
+    email = input("Digite o email do contato: ")
+  
     # Pergunta se é favorito com validação
     while True:
         resposta = input("Deseja adicionar esse contato aos favoritos? (s/n): ").strip().lower()
@@ -111,7 +114,7 @@ def editar_contato(lista_de_contatos):
     indice_selecionado = int(indice_selecionado) - 1
 
     # Verifica se o indice existe mesmo
-    if indice_selecionado < 0 or indice_selecionado >= len(lista_de_contatos):
+    if indice_selecionado <= 0 or indice_selecionado >= len(lista_de_contatos):
         print("Contato não encontrado.")
         return
 
@@ -189,3 +192,39 @@ def listar_favoritos(lista_de_contatos):
         print(f"   📞 {contato['telefone']}")
         print(f"   📧 {contato['email']}")
         print("-" * 30)
+
+# Excluir contato
+def excluir_contato(lista_de_contatos):
+    # Verifica se a lista não está vazia
+    if not lista_de_contatos:
+        print("Lista de contatos vazia 📭")
+        return
+    
+    for indice, contato in enumerate(lista_de_contatos, start=1):
+        print(f"{indice}. {contato['nome']}")
+
+    # Validação da entrada
+    while True:
+        escolha = input("Qual contato você deseja deletar: ").strip()
+
+        if escolha.isdigit():
+            escolha = int(escolha) - 1
+            break
+        else:
+            print("❌ Digite apenas números.")
+
+    # Verificando se o índice existe
+    if escolha < 0 or escolha >= len(lista_de_contatos):
+        print("❌ Escolha um contato existente da lista!")
+        return
+
+    # Pegando o contato antes de deletar (pra mostrar)
+    contato_removido = lista_de_contatos[escolha]
+
+    # Removendo da lista
+    lista_de_contatos.pop(escolha)
+
+    # Feedback
+    print(f"🗑️ Contato {contato_removido['nome']} removido com sucesso!")
+
+    
